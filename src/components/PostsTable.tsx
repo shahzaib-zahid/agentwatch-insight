@@ -53,6 +53,7 @@ export function PostsTable({
   competitorOptions,
   emptyAction,
   limit,
+  exportName,
 }: {
   posts: PostWithMetrics[];
   loading?: boolean;
@@ -61,6 +62,7 @@ export function PostsTable({
   competitorOptions?: { id: string; name: string }[];
   emptyAction?: React.ReactNode;
   limit?: number;
+  exportName?: string;
 }) {
   const [sort, setSort] = useState<SortKey>("engagement");
   const [competitor, setCompetitor] = useState("all");
