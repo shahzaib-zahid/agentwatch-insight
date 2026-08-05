@@ -35,6 +35,7 @@ export function MobileNav() {
           {i.label}
         </Link>
       ))}
+      </div>
     </div>
   );
 }
