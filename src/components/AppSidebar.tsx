@@ -12,6 +12,7 @@ import {
 import { PLATFORMS } from "@/lib/platforms";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { GlobalSearchTrigger } from "@/components/GlobalSearch";
 
 const NAV = [
   { to: "/", label: "Overview", icon: LayoutDashboard, exact: true },
