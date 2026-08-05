@@ -46,6 +46,12 @@ export function AppSidebar() {
         </div>
       </div>
 
+      <div className="px-3 pb-3">
+        <GlobalSearchTrigger />
+      </div>
+
+
+
       <nav className="flex-1 space-y-0.5 overflow-y-auto px-2 pb-4">
         {NAV.slice(0, 2).map((item) => (
           <Link
