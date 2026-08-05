@@ -25,6 +25,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { EmptyState, PlatformChip, TableSkeleton } from "@/components/ui-bits";
+import { ExportButton } from "@/components/ExportButton";
 import { PLATFORMS } from "@/lib/platforms";
 import { shortDate } from "@/lib/format";
 import { useAddCompetitor, useCompetitors, useToggleCompetitor } from "@/lib/data";
@@ -86,6 +87,21 @@ function CompetitorsPage() {
         title="Competitors"
         description="Creators and brands AgentWatch monitors for high-performing content."
         action={
+          <div className="flex items-center gap-2">
+          <ExportButton
+            filename="agentwatch-competitors"
+            rows={competitors}
+            columns={[
+              { header: "Name", value: (c) => c.name },
+              { header: "Handle", value: (c) => c.handle },
+              { header: "Platform", value: (c) => c.platform },
+              { header: "Profile URL", value: (c) => c.profile_url ?? "" },
+              { header: "Niche tags", value: (c) => (c.niche_tags ?? []).join(" | ") },
+              { header: "Active", value: (c) => (c.active ? "yes" : "no") },
+              { header: "Added", value: (c) => c.added_date },
+              { header: "Notes", value: (c) => c.notes ?? "" },
+            ]}
+          />
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button size="sm">
@@ -145,6 +161,7 @@ function CompetitorsPage() {
               </DialogFooter>
             </DialogContent>
           </Dialog>
+          </div>
         }
       />
 

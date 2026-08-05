@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { MobileNav, PageHeader } from "@/components/PageHeader";
 import { EmptyState, PlatformChip, ScoreBadge } from "@/components/ui-bits";
 import { HowCalculated } from "@/components/HowCalculated";
+import { ExportButton } from "@/components/ExportButton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -58,6 +59,21 @@ function SuggestionsPage() {
       <PageHeader
         title="Content ideas"
         description="Ranked by modeled success probability. Weights are configurable and fully visible."
+        action={
+          <ExportButton
+            filename="agentwatch-content-ideas"
+            rows={rows}
+            columns={[
+              { header: "Topic", value: (s) => s.suggested_topic },
+              { header: "Platform", value: (s) => s.suggested_platform },
+              { header: "Format", value: (s) => s.suggested_format },
+              { header: "Success probability", value: (s) => s.success_probability },
+              { header: "Status", value: (s) => s.status },
+              { header: "Rationale", value: (s) => s.rationale_text },
+              { header: "Created at", value: (s) => s.created_at },
+            ]}
+          />
+        }
       />
 
       <div className="flex flex-wrap items-center gap-2 px-6 py-4">

@@ -12,6 +12,7 @@ import {
 import { PLATFORMS } from "@/lib/platforms";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { GlobalSearchTrigger } from "@/components/GlobalSearch";
 
 const NAV = [
   { to: "/", label: "Overview", icon: LayoutDashboard, exact: true },
@@ -44,6 +45,12 @@ export function AppSidebar() {
           <p className="text-[11px] text-muted-foreground">Content intelligence</p>
         </div>
       </div>
+
+      <div className="px-3 pb-3">
+        <GlobalSearchTrigger />
+      </div>
+
+
 
       <nav className="flex-1 space-y-0.5 overflow-y-auto px-2 pb-4">
         {NAV.slice(0, 2).map((item) => (

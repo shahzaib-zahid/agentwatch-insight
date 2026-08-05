@@ -1,6 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { CalendarDays, LayoutDashboard, Lightbulb, Settings, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { GlobalSearchTrigger } from "@/components/GlobalSearch";
 
 const ITEMS = [
   { to: "/", label: "Overview", icon: LayoutDashboard },
@@ -14,7 +15,11 @@ const ITEMS = [
 export function MobileNav() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   return (
-    <div className="flex gap-1 overflow-x-auto border-b border-border bg-sidebar px-2 py-2 md:hidden">
+    <div className="border-b border-border bg-sidebar md:hidden">
+      <div className="px-2 pt-2">
+        <GlobalSearchTrigger />
+      </div>
+      <div className="flex gap-1 overflow-x-auto px-2 py-2">
       {ITEMS.map((i) => (
         <Link
           key={i.to}
@@ -30,6 +35,7 @@ export function MobileNav() {
           {i.label}
         </Link>
       ))}
+      </div>
     </div>
   );
 }

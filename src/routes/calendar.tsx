@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MobileNav, PageHeader } from "@/components/PageHeader";
+import { ExportButton } from "@/components/ExportButton";
 import { EmptyState, PlatformChip } from "@/components/ui-bits";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -42,6 +43,19 @@ function CalendarPage() {
       <PageHeader
         title="Content calendar"
         description="The next two weeks of planned content, grouped by day."
+        action={
+          <ExportButton
+            filename="agentwatch-calendar"
+            rows={items}
+            columns={[
+              { header: "Title", value: (i) => i.title },
+              { header: "Platform", value: (i) => i.platform },
+              { header: "Format", value: (i) => i.format },
+              { header: "Scheduled for", value: (i) => i.scheduled_for },
+              { header: "Status", value: (i) => i.status },
+            ]}
+          />
+        }
       />
 
       <div className="px-6 py-5">

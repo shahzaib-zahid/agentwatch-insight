@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AppSidebar } from "@/components/AppSidebar";
 import { Toaster } from "@/components/ui/sonner";
+import { GlobalSearch } from "@/components/GlobalSearch";
 
 const themeScript = `(function(){try{var t=localStorage.getItem('agentwatch-theme');if(t==='light'){document.documentElement.classList.add('light');}}catch(e){}})();`;
 
@@ -118,6 +119,7 @@ function RootComponent() {
           <Outlet />
         </main>
       </div>
+      <GlobalSearch />
       <Toaster position="top-right" />
     </QueryClientProvider>
   );

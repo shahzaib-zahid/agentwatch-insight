@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CheckCircle2, CircleAlert, Loader2, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { MobileNav, PageHeader } from "@/components/PageHeader";
+import { ExportButton } from "@/components/ExportButton";
 import { PlatformChip } from "@/components/ui-bits";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -184,11 +185,25 @@ function SettingsPage() {
         </section>
 
         <section className="panel overflow-hidden">
-          <div className="p-4">
-            <h2 className="text-sm font-semibold">Recent ingestion runs</h2>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Every scrape attempt is logged so failures are visible, not silent.
-            </p>
+          <div className="flex flex-wrap items-start justify-between gap-3 p-4">
+            <div>
+              <h2 className="text-sm font-semibold">Recent ingestion runs</h2>
+              <p className="mt-1 text-xs text-muted-foreground">
+                Every scrape attempt is logged so failures are visible, not silent.
+              </p>
+            </div>
+            <ExportButton
+              filename="agentwatch-ingestion-runs"
+              rows={runs}
+              columns={[
+                { header: "Started at", value: (r) => r.started_at },
+                { header: "Platform", value: (r) => r.platform },
+                { header: "Actor", value: (r) => r.actor_id ?? "" },
+                { header: "Items returned", value: (r) => r.items_returned },
+                { header: "Status", value: (r) => r.status },
+                { header: "Message", value: (r) => r.message ?? "" },
+              ]}
+            />
           </div>
           {loadingRuns ? (
             <Skeleton className="m-4 h-40" />

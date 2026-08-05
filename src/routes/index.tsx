@@ -12,7 +12,9 @@ import {
 } from "recharts";
 import { MobileNav, PageHeader } from "@/components/PageHeader";
 import { KpiCard } from "@/components/ui-bits";
-import { PostsTable } from "@/components/PostsTable";
+import { PostsTable, POST_CSV_COLUMNS } from "@/components/PostsTable";
+import { SpikeAlerts } from "@/components/SpikeAlerts";
+import { ExportButton } from "@/components/ExportButton";
 import {
   Select,
   SelectContent,
@@ -187,7 +189,19 @@ function Overview() {
       </div>
 
       <div className="px-6 pt-6">
-        <h2 className="mb-3 text-sm font-semibold">This week's top 10</h2>
+        <SpikeAlerts posts={posts} loading={isLoading} />
+      </div>
+
+      <div className="px-6 pt-6">
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <h2 className="text-sm font-semibold">This week's top 10</h2>
+          <ExportButton
+            filename="agentwatch-all-posts"
+            rows={posts}
+            columns={POST_CSV_COLUMNS}
+            label="Export all posts"
+          />
+        </div>
         <PostsTable posts={posts} loading={isLoading} showFilters={false} limit={10} />
       </div>
     </div>

@@ -19,9 +19,29 @@ import {
 } from "@/components/ui/select";
 import { EmptyState, PlatformChip, TableSkeleton } from "@/components/ui-bits";
 import { ContentDrawer } from "@/components/ContentDrawer";
+import { ExportButton } from "@/components/ExportButton";
 import { compact, pct, shortDate } from "@/lib/format";
 import { CONTENT_TYPES } from "@/lib/platforms";
 import type { PostWithMetrics } from "@/lib/data";
+
+export const POST_CSV_COLUMNS = [
+  { header: "Competitor", value: (p: PostWithMetrics) => p.competitors?.name ?? "" },
+  { header: "Handle", value: (p: PostWithMetrics) => p.competitors?.handle ?? "" },
+  { header: "Platform", value: (p: PostWithMetrics) => p.platform },
+  { header: "Content type", value: (p: PostWithMetrics) => p.content_type },
+  { header: "Caption", value: (p: PostWithMetrics) => p.caption_text ?? "" },
+  { header: "Posted at", value: (p: PostWithMetrics) => p.posted_at },
+  { header: "Views", value: (p: PostWithMetrics) => Number(p.metrics?.views ?? 0) },
+  { header: "Likes", value: (p: PostWithMetrics) => Number(p.metrics?.likes ?? 0) },
+  { header: "Comments", value: (p: PostWithMetrics) => Number(p.metrics?.comments ?? 0) },
+  { header: "Shares", value: (p: PostWithMetrics) => Number(p.metrics?.shares ?? 0) },
+  { header: "Saves", value: (p: PostWithMetrics) => Number(p.metrics?.saves ?? 0) },
+  {
+    header: "Engagement rate %",
+    value: (p: PostWithMetrics) => Number(p.metrics?.engagement_rate ?? 0),
+  },
+  { header: "URL", value: (p: PostWithMetrics) => p.post_url },
+];
 
 type SortKey = "recent" | "engagement" | "views";
 
@@ -33,6 +53,7 @@ export function PostsTable({
   competitorOptions,
   emptyAction,
   limit,
+  exportName,
 }: {
   posts: PostWithMetrics[];
   loading?: boolean;
@@ -41,6 +62,7 @@ export function PostsTable({
   competitorOptions?: { id: string; name: string }[];
   emptyAction?: React.ReactNode;
   limit?: number;
+  exportName?: string;
 }) {
   const [sort, setSort] = useState<SortKey>("engagement");
   const [competitor, setCompetitor] = useState("all");
@@ -122,8 +144,16 @@ export function PostsTable({
               <SelectItem value="30">Last 30 days</SelectItem>
             </SelectContent>
           </Select>
+
+          <ExportButton
+            className="ml-auto"
+            filename={exportName ?? "agentwatch-posts"}
+            rows={rows}
+            columns={POST_CSV_COLUMNS}
+          />
         </div>
       )}
+
 
       {loading ? (
         <TableSkeleton />
