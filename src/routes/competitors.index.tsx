@@ -25,6 +25,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { EmptyState, PlatformChip, TableSkeleton } from "@/components/ui-bits";
+import { ExportButton } from "@/components/ExportButton";
 import { PLATFORMS } from "@/lib/platforms";
 import { shortDate } from "@/lib/format";
 import { useAddCompetitor, useCompetitors, useToggleCompetitor } from "@/lib/data";
@@ -160,6 +161,7 @@ function CompetitorsPage() {
               </DialogFooter>
             </DialogContent>
           </Dialog>
+          </div>
         }
       />
 
