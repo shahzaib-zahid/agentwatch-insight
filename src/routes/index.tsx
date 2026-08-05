@@ -12,7 +12,9 @@ import {
 } from "recharts";
 import { MobileNav, PageHeader } from "@/components/PageHeader";
 import { KpiCard } from "@/components/ui-bits";
-import { PostsTable } from "@/components/PostsTable";
+import { PostsTable, POST_CSV_COLUMNS } from "@/components/PostsTable";
+import { SpikeAlerts } from "@/components/SpikeAlerts";
+import { ExportButton } from "@/components/ExportButton";
 import {
   Select,
   SelectContent,
