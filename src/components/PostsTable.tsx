@@ -142,8 +142,16 @@ export function PostsTable({
               <SelectItem value="30">Last 30 days</SelectItem>
             </SelectContent>
           </Select>
+
+          <ExportButton
+            className="ml-auto"
+            filename={exportName ?? "agentwatch-posts"}
+            rows={rows}
+            columns={POST_CSV_COLUMNS}
+          />
         </div>
       )}
+
 
       {loading ? (
         <TableSkeleton />
