@@ -48,7 +48,22 @@ function PlatformDetail() {
       <PageHeader
         title={meta.label}
         description={`Top competitor content on ${meta.label}.`}
+        action={
+          <div className="flex items-center gap-2">
+            <a
+              href={meta.url}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <ExternalLink className="size-3.5" />
+              {meta.url.replace("https://", "")}
+            </a>
+            <IngestButton platform={meta.id} />
+          </div>
+        }
       />
+
 
       <div className="flex gap-1 overflow-x-auto border-b border-border px-6 py-2">
         {PLATFORMS.map((p) => (
