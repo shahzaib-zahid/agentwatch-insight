@@ -1,11 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CheckCircle2, CircleAlert, Loader2, RefreshCw } from "lucide-react";
-import { toast } from "sonner";
+import { CheckCircle2, CircleAlert, ExternalLink, Loader2 } from "lucide-react";
 import { MobileNav, PageHeader } from "@/components/PageHeader";
 import { ExportButton } from "@/components/ExportButton";
+import { IngestButton } from "@/components/IngestButton";
 import { PlatformChip } from "@/components/ui-bits";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -21,8 +20,10 @@ import {
 } from "@/components/ui/table";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { relativeDate } from "@/lib/format";
+import { PLATFORMS, platformMeta } from "@/lib/platforms";
 import { SCORING_WEIGHTS, SIGNAL_LABELS, SCORING_DISCLAIMER } from "@/lib/scoring";
 import { useAppSettings, useIngestionRuns, usePlatformConfigs } from "@/lib/data";
+
 
 export const Route = createFileRoute("/settings")({
   head: () => ({
