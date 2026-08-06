@@ -1,11 +1,14 @@
 import { createFileRoute, Link, useRouterState } from "@tanstack/react-router";
+import { ExternalLink } from "lucide-react";
 import { MobileNav, PageHeader } from "@/components/PageHeader";
 import { PostsTable } from "@/components/PostsTable";
+import { IngestButton } from "@/components/IngestButton";
 import { KpiCard } from "@/components/ui-bits";
 import { cn } from "@/lib/utils";
 import { PLATFORMS, platformMeta } from "@/lib/platforms";
 import { compact, pct } from "@/lib/format";
 import { useCompetitors, usePosts } from "@/lib/data";
+
 
 export const Route = createFileRoute("/platforms/$platform")({
   head: () => ({
