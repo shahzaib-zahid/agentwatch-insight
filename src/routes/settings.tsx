@@ -95,6 +95,7 @@ function SettingsPage() {
                 <TableHeader>
                   <TableRow className="hover:bg-transparent">
                     <TableHead>Platform</TableHead>
+                    <TableHead>Source URL</TableHead>
                     <TableHead>Actor</TableHead>
                     <TableHead>Interval</TableHead>
                     <TableHead>Last run</TableHead>
@@ -107,9 +108,21 @@ function SettingsPage() {
                       <TableCell>
                         <PlatformChip platform={c.platform} />
                       </TableCell>
-                      <TableCell className="font-mono text-xs text-muted-foreground">
-                        {c.actor_id ?? "—"}
+                      <TableCell>
+                        <a
+                          href={platformMeta(c.platform).url}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"
+                        >
+                          <ExternalLink className="size-3" />
+                          {platformMeta(c.platform).url.replace("https://", "")}
+                        </a>
                       </TableCell>
+                      <TableCell className="font-mono text-xs text-muted-foreground">
+                        {c.actor_id ?? platformMeta(c.platform).actor}
+                      </TableCell>
+
                       <TableCell className="num text-sm">every {c.schedule_hours}h</TableCell>
                       <TableCell className="text-sm text-muted-foreground">
                         <span className="flex items-center gap-1.5">
