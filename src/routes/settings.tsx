@@ -1,11 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CheckCircle2, CircleAlert, Loader2, RefreshCw } from "lucide-react";
-import { toast } from "sonner";
+import { CheckCircle2, CircleAlert, ExternalLink, Loader2 } from "lucide-react";
 import { MobileNav, PageHeader } from "@/components/PageHeader";
 import { ExportButton } from "@/components/ExportButton";
+import { IngestButton } from "@/components/IngestButton";
 import { PlatformChip } from "@/components/ui-bits";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -21,8 +20,10 @@ import {
 } from "@/components/ui/table";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { relativeDate } from "@/lib/format";
+import { PLATFORMS, platformMeta } from "@/lib/platforms";
 import { SCORING_WEIGHTS, SIGNAL_LABELS, SCORING_DISCLAIMER } from "@/lib/scoring";
 import { useAppSettings, useIngestionRuns, usePlatformConfigs } from "@/lib/data";
+
 
 export const Route = createFileRoute("/settings")({
   head: () => ({
@@ -67,18 +68,17 @@ function SettingsPage() {
         <section className="panel p-4">
           <h2 className="text-sm font-semibold">Data source</h2>
           <p className="mt-1 text-xs text-muted-foreground">
-            Scraping is powered by Apify actors. The API token is stored server-side as a secret
-            and is never exposed to the browser.
+            Scraping is powered by Apify actors through the connected Apify account. Credentials
+            stay server-side and are never exposed to the browser.
           </p>
-          <div className="mt-3 flex items-center gap-2">
-            <Badge variant={settings?.apify_token_configured ? "default" : "secondary"}>
-              {settings?.apify_token_configured ? "Token configured" : "Token not configured"}
-            </Badge>
-            <Button size="sm" variant="secondary" onClick={() => toast.info("Ingestion runs on its scheduled interval.")}>
-              <RefreshCw className="size-4" /> Trigger manual run
-            </Button>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <Badge variant="default">Apify connected</Badge>
+            {PLATFORMS.map((p) => (
+              <IngestButton key={p.id} platform={p.id} label={`Run ${p.label}`} variant="outline" />
+            ))}
           </div>
         </section>
+
 
         <section className="panel overflow-hidden">
           <div className="p-4">
@@ -95,6 +95,7 @@ function SettingsPage() {
                 <TableHeader>
                   <TableRow className="hover:bg-transparent">
                     <TableHead>Platform</TableHead>
+                    <TableHead>Source URL</TableHead>
                     <TableHead>Actor</TableHead>
                     <TableHead>Interval</TableHead>
                     <TableHead>Last run</TableHead>
@@ -107,9 +108,21 @@ function SettingsPage() {
                       <TableCell>
                         <PlatformChip platform={c.platform} />
                       </TableCell>
-                      <TableCell className="font-mono text-xs text-muted-foreground">
-                        {c.actor_id ?? "—"}
+                      <TableCell>
+                        <a
+                          href={platformMeta(c.platform).url}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"
+                        >
+                          <ExternalLink className="size-3" />
+                          {platformMeta(c.platform).url.replace("https://", "")}
+                        </a>
                       </TableCell>
+                      <TableCell className="font-mono text-xs text-muted-foreground">
+                        {c.actor_id ?? platformMeta(c.platform).actor}
+                      </TableCell>
+
                       <TableCell className="num text-sm">every {c.schedule_hours}h</TableCell>
                       <TableCell className="text-sm text-muted-foreground">
                         <span className="flex items-center gap-1.5">
