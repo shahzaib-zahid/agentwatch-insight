@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CalendarRouteImport } from './routes/calendar'
+import { Route as RunsRouteImport } from './routes/runs'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SuggestionsRouteImport } from './routes/suggestions'
 import { Route as CompetitorsIndexRouteImport } from './routes/competitors.index'
@@ -25,6 +26,11 @@ const IndexRoute = IndexRouteImport.update({
 const CalendarRoute = CalendarRouteImport.update({
   id: '/calendar',
   path: '/calendar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RunsRoute = RunsRouteImport.update({
+  id: '/runs',
+  path: '/runs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SettingsRoute = SettingsRouteImport.update({
@@ -56,6 +62,7 @@ const PlatformsPlatformRoute = PlatformsPlatformRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/calendar': typeof CalendarRoute
+  '/runs': typeof RunsRoute
   '/settings': typeof SettingsRoute
   '/suggestions': typeof SuggestionsRoute
   '/competitors/$id': typeof CompetitorsIdRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/calendar': typeof CalendarRoute
+  '/runs': typeof RunsRoute
   '/settings': typeof SettingsRoute
   '/suggestions': typeof SuggestionsRoute
   '/competitors/$id': typeof CompetitorsIdRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/calendar': typeof CalendarRoute
+  '/runs': typeof RunsRoute
   '/settings': typeof SettingsRoute
   '/suggestions': typeof SuggestionsRoute
   '/competitors/$id': typeof CompetitorsIdRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/calendar'
+    | '/runs'
     | '/settings'
     | '/suggestions'
     | '/competitors/$id'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/calendar'
+    | '/runs'
     | '/settings'
     | '/suggestions'
     | '/competitors/$id'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/calendar'
+    | '/runs'
     | '/settings'
     | '/suggestions'
     | '/competitors/$id'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CalendarRoute: typeof CalendarRoute
+  RunsRoute: typeof RunsRoute
   SettingsRoute: typeof SettingsRoute
   SuggestionsRoute: typeof SuggestionsRoute
   CompetitorsIdRoute: typeof CompetitorsIdRoute
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/calendar'
       fullPath: '/calendar'
       preLoaderRoute: typeof CalendarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/runs': {
+      id: '/runs'
+      path: '/runs'
+      fullPath: '/runs'
+      preLoaderRoute: typeof RunsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/settings': {
@@ -178,6 +198,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CalendarRoute: CalendarRoute,
+  RunsRoute: RunsRoute,
   SettingsRoute: SettingsRoute,
   SuggestionsRoute: SuggestionsRoute,
   CompetitorsIdRoute: CompetitorsIdRoute,
@@ -187,13 +208,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
