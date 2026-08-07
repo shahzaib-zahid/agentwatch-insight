@@ -264,3 +264,22 @@ export function useAddCalendarItem() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ["calendar_items"] }),
   });
 }
+
+export type IngestionRunDetail = IngestionRun & {
+  competitors: { name: string; handle: string; profile_url: string | null } | null;
+};
+
+export function useIngestionRunDetails(limit = 200) {
+  return useQuery({
+    queryKey: ["ingestion_runs", "detail", limit],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("ingestion_runs")
+        .select("*, competitors(name, handle, profile_url)")
+        .order("started_at", { ascending: false })
+        .limit(limit);
+      if (error) throw error;
+      return (data ?? []) as unknown as IngestionRunDetail[];
+    },
+  });
+}
