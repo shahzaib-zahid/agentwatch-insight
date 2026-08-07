@@ -19,6 +19,7 @@ const NAV = [
   { to: "/competitors", label: "Competitors", icon: Users },
   { to: "/suggestions", label: "Suggestions", icon: Lightbulb },
   { to: "/calendar", label: "Calendar", icon: CalendarDays },
+  { to: "/runs", label: "Apify runs", icon: Activity },
   { to: "/settings", label: "Settings", icon: Settings },
 ];
 
