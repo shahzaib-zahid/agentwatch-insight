@@ -131,7 +131,11 @@ function SettingsPage() {
                         </span>
                       </TableCell>
                       <TableCell className="text-right">
-                        <Switch checked={c.enabled} disabled />
+                        <Switch
+                          checked={c.enabled}
+                          disabled
+                          aria-label={`Scheduled ingestion enabled for ${c.platform}`}
+                        />
                       </TableCell>
                     </TableRow>
                   ))}
@@ -177,7 +181,10 @@ function SettingsPage() {
                   A Monday summary of the week's top competitor content.
                 </p>
               </div>
-              <Switch defaultChecked={settings?.weekly_digest ?? true} />
+              <Switch
+                aria-label="Weekly digest"
+                defaultChecked={settings?.weekly_digest ?? true}
+              />
             </div>
             <Separator />
             <div className="flex items-center justify-between gap-4">
@@ -187,7 +194,10 @@ function SettingsPage() {
                   Get notified when an ingestion run fails or returns nothing.
                 </p>
               </div>
-              <Switch defaultChecked={settings?.alert_on_failed_runs ?? true} />
+              <Switch
+                aria-label="Alert on failed runs"
+                defaultChecked={settings?.alert_on_failed_runs ?? true}
+              />
             </div>
             <Separator />
             <div className="space-y-1.5">

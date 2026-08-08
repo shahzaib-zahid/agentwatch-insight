@@ -207,6 +207,7 @@ function CompetitorsPage() {
                       </TableCell>
                       <TableCell className="text-right">
                         <Switch
+                          aria-label={`Tracking active for ${c.name}`}
                           checked={c.active}
                           onCheckedChange={(v) =>
                             toggle.mutate({ id: c.id, active: v })
