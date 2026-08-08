@@ -83,21 +83,25 @@ function PlatformDetail() {
         ))}
       </div>
 
-      <div className="grid gap-3 px-6 py-5 sm:grid-cols-2 xl:grid-cols-4">
-        <KpiCard label="Posts tracked" value={posts.length} loading={isLoading} />
-        <KpiCard label="Avg engagement" value={pct(avgEng)} loading={isLoading} delay={60} />
-        <KpiCard label="Total views" value={compact(views)} loading={isLoading} delay={120} />
-        <KpiCard label="Competitors" value={active.length} loading={isLoading} delay={180} />
-      </div>
+      <section className="px-6 py-5">
+        <h2 className="mb-3 text-sm font-semibold">Platform summary</h2>
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <KpiCard label="Posts tracked" value={posts.length} loading={isLoading} />
+          <KpiCard label="Avg engagement" value={pct(avgEng)} loading={isLoading} delay={60} />
+          <KpiCard label="Total views" value={compact(views)} loading={isLoading} delay={120} />
+          <KpiCard label="Competitors" value={active.length} loading={isLoading} delay={180} />
+        </div>
+      </section>
 
-      <div className="px-6">
+      <section className="px-6">
+        <h2 className="mb-3 text-sm font-semibold">Top content</h2>
         <PostsTable
           posts={posts}
           loading={isLoading}
           showPlatform={false}
           competitorOptions={active.map((c) => ({ id: c.id, name: c.name }))}
         />
-      </div>
+      </section>
     </div>
   );
 }

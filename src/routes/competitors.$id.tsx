@@ -64,7 +64,9 @@ function CompetitorDetail() {
         }
       />
 
-      <div className="grid gap-3 px-6 py-5 sm:grid-cols-2 xl:grid-cols-4">
+      <section className="px-6 py-5">
+        <h2 className="mb-3 text-sm font-semibold">Performance summary</h2>
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <KpiCard label="Posts tracked" value={posts.length} loading={isLoading} />
         <KpiCard label="Avg engagement" value={pct(avgEng)} loading={isLoading} delay={60} />
         <KpiCard label="Total views" value={compact(totalViews)} loading={isLoading} delay={120} />
@@ -74,7 +76,8 @@ function CompetitorDetail() {
           loading={isLoading}
           delay={180}
         />
-      </div>
+        </div>
+      </section>
 
       {competitor && (
         <div className="px-6 pb-3">
@@ -82,9 +85,10 @@ function CompetitorDetail() {
         </div>
       )}
 
-      <div className="px-6">
+      <section className="px-6">
+        <h2 className="mb-3 text-sm font-semibold">Recent posts</h2>
         <PostsTable posts={posts} loading={isLoading} />
-      </div>
+      </section>
     </div>
   );
 }

@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as RunsRouteImport } from './routes/runs'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SuggestionsRouteImport } from './routes/suggestions'
 import { Route as CompetitorsIndexRouteImport } from './routes/competitors.index'
 import { Route as CompetitorsIdRouteImport } from './routes/competitors.$id'
@@ -36,6 +37,11 @@ const RunsRoute = RunsRouteImport.update({
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SuggestionsRoute = SuggestionsRouteImport.update({
@@ -64,6 +70,7 @@ export interface FileRoutesByFullPath {
   '/calendar': typeof CalendarRoute
   '/runs': typeof RunsRoute
   '/settings': typeof SettingsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suggestions': typeof SuggestionsRoute
   '/competitors/$id': typeof CompetitorsIdRoute
   '/platforms/$platform': typeof PlatformsPlatformRoute
@@ -74,6 +81,7 @@ export interface FileRoutesByTo {
   '/calendar': typeof CalendarRoute
   '/runs': typeof RunsRoute
   '/settings': typeof SettingsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suggestions': typeof SuggestionsRoute
   '/competitors/$id': typeof CompetitorsIdRoute
   '/platforms/$platform': typeof PlatformsPlatformRoute
@@ -85,6 +93,7 @@ export interface FileRoutesById {
   '/calendar': typeof CalendarRoute
   '/runs': typeof RunsRoute
   '/settings': typeof SettingsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suggestions': typeof SuggestionsRoute
   '/competitors/$id': typeof CompetitorsIdRoute
   '/platforms/$platform': typeof PlatformsPlatformRoute
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/runs'
     | '/settings'
+    | '/sitemap.xml'
     | '/suggestions'
     | '/competitors/$id'
     | '/platforms/$platform'
@@ -107,6 +117,7 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/runs'
     | '/settings'
+    | '/sitemap.xml'
     | '/suggestions'
     | '/competitors/$id'
     | '/platforms/$platform'
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/runs'
     | '/settings'
+    | '/sitemap.xml'
     | '/suggestions'
     | '/competitors/$id'
     | '/platforms/$platform'
@@ -128,6 +140,7 @@ export interface RootRouteChildren {
   CalendarRoute: typeof CalendarRoute
   RunsRoute: typeof RunsRoute
   SettingsRoute: typeof SettingsRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SuggestionsRoute: typeof SuggestionsRoute
   CompetitorsIdRoute: typeof CompetitorsIdRoute
   PlatformsPlatformRoute: typeof PlatformsPlatformRoute
@@ -162,6 +175,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/suggestions': {
@@ -200,6 +220,7 @@ const rootRouteChildren: RootRouteChildren = {
   CalendarRoute: CalendarRoute,
   RunsRoute: RunsRoute,
   SettingsRoute: SettingsRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SuggestionsRoute: SuggestionsRoute,
   CompetitorsIdRoute: CompetitorsIdRoute,
   PlatformsPlatformRoute: PlatformsPlatformRoute,
