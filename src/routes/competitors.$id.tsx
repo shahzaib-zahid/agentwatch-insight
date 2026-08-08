@@ -76,7 +76,8 @@ function CompetitorDetail() {
           loading={isLoading}
           delay={180}
         />
-      </div>
+        </div>
+      </section>
 
       {competitor && (
         <div className="px-6 pb-3">
@@ -84,9 +85,10 @@ function CompetitorDetail() {
         </div>
       )}
 
-      <div className="px-6">
+      <section className="px-6">
+        <h2 className="mb-3 text-sm font-semibold">Recent posts</h2>
         <PostsTable posts={posts} loading={isLoading} />
-      </div>
+      </section>
     </div>
   );
 }
